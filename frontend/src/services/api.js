@@ -1,8 +1,10 @@
 /**
  * API Service for Spotter HOS & ELD Planner.
+ * Supports environment variable VITE_API_URL for local and production deployments.
  */
 
-const API_BASE = '/api';
+const RAW_API_BASE = import.meta.env.VITE_API_URL || '/api';
+const API_BASE = RAW_API_BASE.endsWith('/') ? RAW_API_BASE.slice(0, -1) : RAW_API_BASE;
 
 export async function planTrip(tripData) {
   const response = await fetch(`${API_BASE}/plan-trip/`, {
